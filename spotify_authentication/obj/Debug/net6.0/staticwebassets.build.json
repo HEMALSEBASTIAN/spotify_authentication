@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "5oQEptYjohzTqMuebr6JvmQESly4eC90nHvjCmDR8Lc=",
+  "Source": "spotify_authentication",
+  "BasePath": "_content/spotify_authentication",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
