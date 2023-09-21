@@ -29,7 +29,9 @@ internal class Program
                 ValidateLifetime = true,
                 ValidateAudience = false,
                 ValidateIssuer = false,
-                ///ClockSkew = TimeSpan.Zero
+                ValidateIssuerSigningKey=false,
+                ValidIssuer="Test",
+                ClockSkew = TimeSpan.Zero
             };
         });
 
@@ -38,7 +40,10 @@ internal class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
+        builder.Services.AddCors(options => options.AddPolicy(name: "Spotify", policy =>
+        {
+            policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        }));
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -47,11 +52,11 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        app.UseCors("Spotify");
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
-
+        
         app.MapControllers();
 
         app.Run();

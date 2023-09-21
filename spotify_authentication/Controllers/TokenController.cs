@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using spotify_authentication.Interface;
 using spotify_authentication.Model;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace spotify_authentication.Controllers
 {
@@ -16,13 +18,13 @@ namespace spotify_authentication.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authentication([FromBody] User user)
         {
-            var token = _tokenManager.Authenticate(user.userName, user.password);
+            var token = _tokenManager.Authenticate(user.email, user.password);
             if (token == null)
             {
                 return Unauthorized();
             }
 
-            return Ok(token);
+            return Ok(JsonSerializer.Serialize(token));
         }
 
         [HttpGet("authorization")]
